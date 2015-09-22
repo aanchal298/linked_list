@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct ll{
+    struct ll *next;
+    int val;
+};
+int floyd(struct ll *head)
+{
+    struct ll *f,*s;
+    f=head,s=head;
+    while(s && f && f->next)
+    {
+        s=s->next;
+        f=f->next->next;
+        if(f==s)
+        {
+            cout<<"found loop"<<endl;
+            return 1;
+        }
+    }
+    return 0;
+}
+void insertbeginning(struct ll **head,int n)
+{
+    struct ll *node;
+    node=(ll*)malloc(sizeof(ll));
+    node->val=n;
+    node->next=NULL;
+    if((*head)==NULL)
+        (*head)=node;
+    else
+    {
+        struct ll *p=(*head);
+        node->next=p;
+        (*head)=node;
+    }
+
+}
+int main()
+{
+    struct ll *head=NULL;
+    //insertbeginning(&head, 51);
+    insertbeginning(&head, 52);
+    insertbeginning(&head, 53);
+    insertbeginning(&head, 54);
+    insertbeginning(&head, 52);
+    insertbeginning(&head, 56);
+    insertbeginning(&head, 57);
+    insertbeginning(&head, 52);
+    //head->next->next->next=head->next;
+    int yy=floyd(head);
+    cout<<yy<<endl;
+
+    return 0;
+}
